@@ -26,7 +26,7 @@
       const span = document.createElement('span');
       span.contentEditable = 'true';
       span.innerText = value;
-      span.addEventListener('blur', (event) => {
+      span.addEventListener('input', (event) => {
         updateCell(recordId, field, event.target.innerText);
       });
       return span;
