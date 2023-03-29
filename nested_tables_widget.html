@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Nested Tables Widget</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+  </style>
+  <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+</head>
+<body>
+  <div id="container">Waiting for data...</div>
+  <script>
+    function createTable(data) {
+      const table = document.createElement('table');
+      const header = document.createElement('tr');
+      for (const key in data[0]) {
+        const th = document.createElement('th');
+        th.innerText = key;
+        header.appendChild(th);
+      }
+      table.appendChild(header);
+
+      for (const row of data) {
+        const tr = document.createElement('tr');
+        for (const key in row) {
+          const td = document.createElement('td');
+          if (Array.isArray(row[key])) {
+            td.appendChild(createTable(row[key]));
+          } else {
+            td.innerText = row[key];
+          }
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      }
+      return table;
+    }
+
+    grist.ready();
+    grist.onRecords(function(records) {
+      const container = document.getElementById('container');
+      container.innerHTML = '';
+      container.appendChild(createTable(records));
+    });
+  </script>
+</body>
+</html>
