@@ -18,6 +18,20 @@
 <body>
   <div id="container">Waiting for data...</div>
   <script>
+    function updateCell(recordId, field, value) {
+      grist.updateRecords(recordId, { [field]: value });
+    }
+
+    function createEditableCell(recordId, field, value) {
+      const span = document.createElement('span');
+      span.contentEditable = 'true';
+      span.innerText = value;
+      span.addEventListener('blur', (event) => {
+        updateCell(recordId, field, event.target.innerText);
+      });
+      return span;
+    }
+
     function createTable(data) {
       const table = document.createElement('table');
       const header = document.createElement('tr');
@@ -35,7 +49,7 @@
           if (Array.isArray(row[key])) {
             td.appendChild(createTable(row[key]));
           } else {
-            td.innerText = row[key];
+            td.appendChild(createEditableCell(row.id, key, row[key]));
           }
           tr.appendChild(td);
         }
