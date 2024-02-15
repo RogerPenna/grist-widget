@@ -11,18 +11,18 @@ body {
 }
 
 .status {
-  padding: 8px;
-  margin-top: 40px;
+  padding: 6px;
+  margin-top: 20px;
   color: blue;
 }
 
 
 #app {
-  margin: 32px 16px;
+  margin: 16px 8px;
 }
 
 .description, .result, .button {
-  margin: 16px 0;
+  margin: 10px 0;
 }
 
 .message {
@@ -33,9 +33,9 @@ body {
   border: none;
   border-radius: 6px;
   background-color: #1486ff;
-  padding: 8px 16px;
+  padding: 6px 12px;
   color: white;
-  font-size: inherit;
+  font-size: 12px;
   font-family: inherit;
   font-weight: inherit;
 }
